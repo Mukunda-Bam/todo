@@ -1,0 +1,11 @@
+.editBox{
+    background-color: white;
+    border-radius: 5px;
+    padding:20px;
+    
+}
+.closeClass{
+    align-items: right;
+    float:right;
+    transform:translate(-10%, -290%);
+}

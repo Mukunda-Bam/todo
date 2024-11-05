@@ -1,0 +1,48 @@
+.todoClass{
+    padding: 0px;
+}
+.firstClass{
+    padding: 20px;
+}
+
+.secondClass{
+    height: 50px;
+    font-size: 20px;
+    border-radius: 7px;
+    border-color: brown;
+    border-width: 3px;
+}
+.selectClass{
+    height:50px;
+    font-size: 20px;
+}
+.thirdClass{
+    height: 50px;
+    font-size: 20px;
+    background-color: blue;
+    border-radius:5px;
+    color:brown;
+}
+.fourthClass{
+   display:inline-block;
+}
+.fifthClass{
+
+    display:inline-block;
+
+
+}
+#liId{
+    height:60px;
+    font-size: 20px;
+}
+.sixthClass{
+ float:right;
+ align-items: right;
+ align-content: right;
+ height: 30px;
+}
+.seventhClass{
+    float:right;
+    height: 30px;
+}
