@@ -1,24 +1,28 @@
-
-
 import React, { useState } from 'react';
 import './TodoInput.css';
 import Popup from 'reactjs-popup';
+import { RiDeleteBinLine } from "react-icons/ri";
 import Edit from './Edit.js';
 
 function TodoInput() {
-    const [inputText, setInputText] = useState(''); //Input from user
-    const [selectedOption, setSelectedOption] = useState('high'); //Creating states for the select option
-    const [display, setDisplay] = useState([]); //Creating an array for final rendering of text
+    const [inputText, setInputText] = useState(''); // Input from user
+    const [selectedOption, setSelectedOption] = useState('high'); // Creating states for the select option
+    const [display, setDisplay] = useState([]); // Creating an array for final rendering of text
     const [colors, setColors] = useState([]); // Creating an array to hold the colors for each specific todo item
+    const [isPopupOpen, setIsPopupOpen] = useState(false); // To control the popup visibility
+    const [editIndex, setEditIndex] = useState(null); // Index of the todo being edited
 
+    // Handle input text change
     function handleChange(e) {
         setInputText(e.target.value);
     }
 
+    // Handle select option change
     function handleOption(e) {
         setSelectedOption(e.target.value);
     }
 
+    // Add a new todo item
     function addTodo(e) {
         e.preventDefault();
         const newColor = getColor(selectedOption);
@@ -27,23 +31,41 @@ function TodoInput() {
         setInputText(''); // Clears input after adding
     }
 
+    // Delete a todo item
     function handleDelete(index) {
         const newList = [...display];
         newList.splice(index, 1);
-        const newColors = [...colors]; // Create a new colors array
+        const newColors = [...colors];
         newColors.splice(index, 1); // Remove the color of the deleted item
-        setDisplay(newList); //Update text
-        setColors(newColors); // Update colors
+        setDisplay(newList);
+        setColors(newColors);
     }
 
-    function popupBox() {
-        return (
-            <div>
-                {Edit()}
-            </div>
-        );
-    };
+    // Function to open the popup and set the current todo index
+    function openPopup(index) {
+        setEditIndex(index);
+        setIsPopupOpen(true);
+    }
 
+    // Function to close the popup
+    function closePopup() {
+        setIsPopupOpen(false);
+    }
+
+    // Function to update the priority and color of the todo item
+    function updatePriority(priority) {
+        if (editIndex !== null) {
+            const newColors = [...colors];
+            newColors[editIndex] = getColor(priority);
+            const newDisplay = [...display];
+            newDisplay[editIndex] = newDisplay[editIndex].split(":-")[0] + ":-" + priority;
+            setColors(newColors);
+            setDisplay(newDisplay);
+        }
+        closePopup();
+    }
+
+    // Function to return the color based on the priority
     function getColor(priority) {
         switch (priority) {
             case 'high':
@@ -56,21 +78,6 @@ function TodoInput() {
                 return 'white';
         }
     }
-
-    // function getColor(priority){
-    //     if (priority ==='high'){
-    //         return "red"
-    //     }
-    //     else if(priority==='medium'){
-    //         return 'yellow'
-    //     }
-    //     else if (priority==='low'){
-    //         return 'green'
-    //     }
-    //     else {
-    //         return 'white'
-    //     }
-    // }
 
     return (
         <div className="todoClass">
@@ -91,19 +98,23 @@ function TodoInput() {
             </form>
 
             <div className='fourthClass'>
-                <h1>Todo List</h1>
+                <h1 className='h1-class'>Todo List</h1>
                 <ol className="fifthClass" id="olId">
                     {display.map((todo, index) => (
                         <li id="liId" key={index} style={{ backgroundColor: colors[index] }}>
                             {todo}
-                            <Popup trigger={<button className="sixthClass">Edit</button>} position="right center">
-                                <div>{popupBox()}</div>
-                            </Popup>
-                            <button className="seventhClass" onClick={() => handleDelete(index)}>-</button>
+                            <button className="sixthClass" onClick={() => openPopup(index)}>Edit</button>
+                            <button className="seventhClass" onClick={() => handleDelete(index)}><RiDeleteBinLine /></button>
                         </li>
                     ))}
                 </ol>
             </div>
+
+            {isPopupOpen && editIndex !== null && (
+                <Popup open={isPopupOpen} onClose={closePopup} position="right center">
+                    <Edit updatePriority={updatePriority} closePopup={closePopup} />
+                </Popup>
+            )}
         </div>
     );
 }

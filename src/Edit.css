@@ -1,5 +1,5 @@
 .editBox{
-    background-color: white;
+    background-color: antiquewhite;
     border-radius: 5px;
     padding:20px;
     
@@ -7,5 +7,24 @@
 .closeClass{
     align-items: right;
     float:right;
-    transform:translate(-10%, -290%);
+    transform:translate(100%, -390%);
+}
+.highButton{
+    color:white;
+    background-color: red;
+    border-radius: 5px;
+    height:40px;
+}
+.mediumButton{
+    color:black;
+    background-color: yellow;
+    border-radius: 5px;
+    height:40px;
+}
+
+.lowButton{
+    color:white;
+    background-color: green;
+    border-radius: 5px;
+    height:40px;
 }

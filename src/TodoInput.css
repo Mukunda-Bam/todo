@@ -25,24 +25,32 @@
 }
 .fourthClass{
    display:inline-block;
+   background-color: antiquewhite;
+   width: 500px;
+   border-radius: 5px;
+   border: 3px solid black;
+}
+.h1-class{
+  background-color: whitesmoke;
 }
 .fifthClass{
-
     display:inline-block;
-
-
 }
 #liId{
-    height:60px;
+    height:30px;
     font-size: 20px;
+    border-radius: 5px;
 }
 .sixthClass{
  float:right;
  align-items: right;
  align-content: right;
  height: 30px;
+ color:blue;
 }
 .seventhClass{
     float:right;
     height: 30px;
+    width: 30px;
+    color:red;
 }
